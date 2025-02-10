@@ -1,0 +1,113 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // Altere conforme seu banco de dados
+  url      = env("DATABASE_URL")
+}
+
+model Cliente {
+  id           String    @id @default(uuid())
+  nome         String
+  cpf          String    @unique
+  telefone     String
+  endereco     String
+  email        String?   // Opcional
+  dataCadastro DateTime  @default(now())
+  status       StatusCliente
+  
+  contratos    ContratoDeEmprestimo[]
+  cobrancas    Cobranca[]
+}
+
+model ContratoDeEmprestimo {
+  id                String    @id @default(uuid())
+  clienteId         String
+  dataContrato      DateTime  @default(now())
+  valorTotal        Decimal
+  juros            Decimal
+  tipoParcelamento TipoParcelamento
+  quantidadeParcelas Int
+  valorParcela      Decimal
+  status           StatusContrato
+  cliente          Cliente @relation(fields: [clienteId], references: [id])
+  parcelas        Parcela[]
+
+  MovimentacaoFinanceira MovimentacaoFinanceira[]
+}
+
+model Parcela {
+  id              String    @id @default(uuid())
+  contratoId      String
+  dataVencimento  DateTime
+  valor           Decimal
+  status         StatusParcela
+  dataPagamento  DateTime?  // Opcional
+
+  contrato       ContratoDeEmprestimo @relation(fields: [contratoId], references: [id])
+  cobrancas      Cobranca[]
+  movimentacao   MovimentacaoFinanceira?
+}
+
+model Cobranca {
+  id          String    @id @default(uuid())
+  parcelaId   String
+  clienteId   String
+  mensagem    String
+  dataEnvio   DateTime  @default(now())
+  status      StatusCobranca
+
+  parcela     Parcela @relation(fields: [parcelaId], references: [id])
+  cliente     Cliente @relation(fields: [clienteId], references: [id])
+}
+
+model MovimentacaoFinanceira {
+  id               String    @id @default(uuid())
+  tipo             TipoMovimentacao
+  valor           Decimal
+  dataMovimentacao DateTime @default(now())
+  descricao       String
+  
+  contratoId       String?  @unique(map: "Contrato_FK")
+  contrato         ContratoDeEmprestimo? @relation(fields: [contratoId], references: [id])
+
+  parcelaId        String?  @unique(map: "Parcela_FK")  // Chave estrangeira única para Parcela
+  parcela          Parcela? @relation(fields: [parcelaId], references: [id])
+}
+
+enum StatusCliente {
+  ATIVO
+  INATIVO
+}
+
+enum StatusContrato {
+  ATIVO
+  QUITADO
+  INADIMPLENTE
+}
+
+enum StatusParcela {
+  PENDENTE
+  PAGA
+  VENCIDA
+}
+
+enum StatusCobranca {
+  PENDENTE
+  ENVIADA
+  RESPONDIDA
+}
+
+enum TipoMovimentacao {
+  ENTRADA
+  SAIDA
+}
+
+enum TipoParcelamento {
+  DIARIO
+  QUINZENAL
+  MENSAL
+}
