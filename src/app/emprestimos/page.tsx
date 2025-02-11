@@ -5,13 +5,14 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Trash2, Pencil, Info } from "lucide-react";
-import { ContratoDeEmprestimo } from "@prisma/client";
+import { ContratoDeEmprestimo, Parcela } from "@prisma/client";
 import { Dialog, DialogTitle } from "@radix-ui/react-dialog";
 import { DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 
 export default function EmprestimosPage() {
   const [emprestimos, setEmprestimos] = useState<ContratoDeEmprestimo[]>([]);
   const [clienteSituacao, setClienteSituacao] = useState(null);
+  const [parcelas, setParcelas] = useState<Parcela[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -74,7 +75,12 @@ export default function EmprestimosPage() {
                     <Button size="sm" variant="destructive" onClick={() => handleDelete(emprestimo.id)}>
                       <Trash2 className="w-4 h-4" />
                     </Button>
-                    <Dialog>
+                    <Button size="sm" variant="secondary">
+                      <Link href={`/emprestimos/${emprestimo.id}`}>
+                        <Info className="w-4 h-4" />
+                      </Link>
+                    </Button>
+                    {/* <Dialog>
                       <DialogTrigger asChild>
                         <Button size="sm" variant="secondary" onClick={() => handleVerSituacao(emprestimo.clienteId)}>
                           <Info className="w-4 h-4" />
@@ -95,7 +101,7 @@ export default function EmprestimosPage() {
                           <p>Carregando...</p>
                         )}
                       </DialogContent>
-                    </Dialog>
+                    </Dialog> */}
                   </div>
                 </TableCell>
               </TableRow>

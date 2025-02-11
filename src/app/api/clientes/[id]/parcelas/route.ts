@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
   const id = req.url?.split('/') || ''
-  const cliente = await prisma.cliente.findUnique({
+  const cliente = await prisma.contratoDeEmprestimo.findUnique({
     where: { id: String(id[5])},
   });
 
@@ -12,7 +12,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const parcelas = await prisma.parcela.findMany({
-    where: { contrato: { clienteId: String(id) } },
+    where: { contratoId: String(id[5]) },
     orderBy: { dataVencimento: "asc" },
   });
 
