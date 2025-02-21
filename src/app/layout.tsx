@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Sidebar from "@/components/ui/sidebar";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
 
 export const metadata: Metadata = {
   title: "emprestoou",
@@ -13,13 +20,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <div className="flex">
-          <Sidebar />
-          <main className="flex-1 p-6">{children}</main>
-        </div>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="pt-BR">
+      
+        <body><header className="flex justify-end items-center p-4 gap-4 h-16">
+          <SignedOut>
+          <SignInButton />
+          <SignUpButton />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+        </header>{children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

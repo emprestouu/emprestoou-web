@@ -42,7 +42,7 @@ export default function EmprestimosPage() {
             <div className="flex justify-between items-center mb-4">
                 <h1 className="text-2xl font-bold">Empréstimos</h1>
                 <Button asChild>
-                    <Link href="/emprestimos/novo">+ Novo Empréstimo</Link>
+                    <Link href="/dashboard/emprestimos/novo">+ Novo Empréstimo</Link>
                 </Button>
             </div>
 

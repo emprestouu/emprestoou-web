@@ -26,7 +26,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
       ? (totalInadimplente / totalContratos) * 100
       : 0;
 
-    Response.json({
+    return Response.json({
       totalEmprestado: totalEmprestado._sum.valorTotal || 0,
       totalReceber: totalReceber._sum.valor || 0,
       dinheiroMovimentado: dinheiroMovimentado._sum.valor || 0,

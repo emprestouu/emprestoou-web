@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Home, Users, Wallet, Settings, Menu } from "lucide-react";
+import { Home, Users, Wallet, Settings, Menu, Smartphone } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -9,10 +9,11 @@ export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const menuItems = [
-    { name: "Dashboard", href: "/", icon: <Home className="w-5 h-5" /> },
-    { name: "Clientes", href: "/clientes", icon: <Users className="w-5 h-5" /> },
-    { name: "Empréstimos", href: "/emprestimos", icon: <Wallet className="w-5 h-5" /> },
-    { name: "Configurações", href: "/configuracoes", icon: <Settings className="w-5 h-5" /> },
+    { name: "Dashboard", href: "/dashboard", icon: <Home className="w-5 h-5" /> },
+    { name: "Clientes", href: "/dashboard/clientes", icon: <Users className="w-5 h-5" /> },
+    { name: "Empréstimos", href: "/dashboard/emprestimos", icon: <Wallet className="w-5 h-5" /> },
+    { name: "Cobrança", href: "/dashboard/cobranca", icon: <Smartphone className="w-5 h-5" /> },
+    { name: "Configurações", href: "/dashboard/configuracoes", icon: <Settings className="w-5 h-5" /> },
   ];
 
   return (
@@ -20,9 +21,10 @@ export default function Sidebar() {
       {/* Botão de Expandir/Reduzir */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="mb-6 p-2 rounded-lg hover:bg-gray-800 transition"
+        className="mb-6 p-2 rounded-lg hover:bg-gray-800 transition flex items-center space-x-3"
       >
         <Menu className="w-6 h-6" />
+        {!isCollapsed && <span className="text-lg font-bold">Emprestoou</span>}
       </button>
 
       {/* Menu */}
