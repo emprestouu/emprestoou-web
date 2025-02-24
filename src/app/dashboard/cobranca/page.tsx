@@ -47,7 +47,7 @@ export default function Cobranca() {
           <p className="text-gray-500">Nenhuma parcela vencendo hoje.</p>
         ) : (
           <div className="space-y-4">
-            {parcelas.map((parcela) => (
+            {parcelas.map((parcela: any) => (
               <div key={parcela.id} className="flex justify-between items-center p-4 border rounded-lg shadow">
                 <div>
                   <p className="font-semibold">{parcela.contrato.cliente.nome}</p>
@@ -67,7 +67,7 @@ export default function Cobranca() {
         </TabsContent>
         <TabsContent value="vencidas">
         <div className="space-y-4">
-          {parcelasVencidas.map((parcela) => (
+          {parcelasVencidas.map((parcela: any) => (
             <div key={parcela.id} className="flex justify-between items-center p-4 border rounded-lg shadow">
               <div>
                 <p className="font-semibold">{parcela.contrato.cliente.nome}</p>

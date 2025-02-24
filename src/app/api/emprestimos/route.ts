@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { Parcela, Prisma } from '@prisma/client'
+import { ContratoDeEmprestimo, Parcela, Prisma } from '@prisma/client'
 
 export async function GET() {
     const emprestimos = await prisma.contratoDeEmprestimo.findMany({
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
         tipoParcelamento,
         dataInicio,
         status,
-    } = body
+    } = body 
 
     const totalComJuros = valorTotal + valorTotal * (juros / 100)
     const valorParcela = totalComJuros / quantidadeParcelas
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
             tipoParcelamento,
             status,
             valorParcela,
-        },
+        } as any
     })
 
     const parcelas = []

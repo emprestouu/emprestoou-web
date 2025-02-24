@@ -13,7 +13,7 @@ export async function POST(req: Request) {
   
   try {
     const novoCliente = await prisma.cliente.create({
-      data: { nome, cpf, telefone, endereco, email, status: "ATIVO" },
+      data: { nome, cpf, telefone, endereco, email, status: "ATIVO" } as Cliente,
     });
 
     return Response.json(novoCliente, { status: 201});

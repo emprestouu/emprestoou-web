@@ -1,12 +1,10 @@
-"use client";
+'use client'
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 export default function Assinatura() {
-  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState("INATIVO");
   const [message, setMessage] = useState("");

@@ -3,13 +3,11 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
-import { useRouter, useSearchParams } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { UserProfile } from '@clerk/nextjs'
 
 export default function Configuracoes() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,28 +18,24 @@ export default function Configuracoes() {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
 
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const res = await fetch('/api/configuracoes')
-        const data = await res.json()
-        setFormData({
-          name: data.name,
-          email: data.email,
-          password: '',
-          whatsappMessage: data.whatsappMessage,
-          subscriptionStatus: data.subscriptionStatus,
-        })
-
-        if (searchParams.get('status') === 'success') {
-          setMessage('Assinatura ativada com sucesso!')
-        }
-      } catch (error) {
-        console.error('Erro ao carregar usuário', error)
-      }
-    }
-    fetchUser()
-  }, [searchParams])
+  // useEffect(() => {
+  //   async function fetchUser() {
+  //     try {
+  //       const res = await fetch('/api/configuracoes')
+  //       const data = await res.json()
+  //       setFormData({
+  //         name: data.name,
+  //         email: data.email,
+  //         password: '',
+  //         whatsappMessage: data.whatsappMessage,
+  //         subscriptionStatus: data.subscriptionStatus,
+  //       })
+  //     } catch (error) {
+  //       console.error('Erro ao carregar usuário', error)
+  //     }
+  //   }
+  //   fetchUser()
+  // }, [searchParams])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

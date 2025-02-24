@@ -139,7 +139,7 @@ export default function NovoEmprestimo() {
                   <SelectValue placeholder="Selecione um cliente" />
                 </SelectTrigger>
                 <SelectContent>
-                  {clientes.map((cliente) => (
+                  {clientes.map((cliente: any) => (
                     <SelectItem key={cliente.id} value={cliente.id}>
                       {cliente.nome}
                     </SelectItem>

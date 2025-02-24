@@ -1,8 +1,7 @@
 import { prisma } from "@/lib/prisma";
-import { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest) {
   const id = req.url?.split('/') || ''
   const contratoEmprestimo = await prisma.contratoDeEmprestimo.findUnique({
     where: { id: String(id[5])},
@@ -21,7 +20,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   return Response.json({ contratoEmprestimo, parcelas }, { status: 200 });
 }
 
-export async function PUT(req: NextApiRequest) {
+export async function PUT(req: NextRequest) {
   const id = req.url?.split('/') || ''
 
   const parcelaAtualizada = await prisma.parcela.update({
