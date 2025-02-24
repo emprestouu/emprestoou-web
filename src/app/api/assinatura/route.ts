@@ -1,5 +1,6 @@
 import { MercadoPagoConfig, Payment } from 'mercadopago'
 
+
 const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADO_ACCESS_TOKEN_TEST_KEY as string,
   options: { timeout: 5000 },
