@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
   const id = req.url?.split('/') || ''
   const contratoEmprestimo = await prisma.contratoDeEmprestimo.findUnique({
     where: { id: String(id[5])},
@@ -9,7 +10,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
   });
 
   if (!contratoEmprestimo) {
-    return res.status(404).json({ error: "Cliente não encontrado" });
+    // return res.status(404).json({ error: "Cliente não encontrado" });
   }
 
   const parcelas = await prisma.parcela.findMany({

@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
-import { NextApiRequest } from "next";
 
-export async function GET(req: NextApiRequest, { params }: { params: Promise<{ id: string }>}) {
+import { NextRequest } from "next/server";
+
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }>}) {
   const id = (await params).id
     const cliente = await prisma.cliente.findUnique({
       where: { id: String(id) },
