@@ -12,7 +12,7 @@ export async function POST(req: Request) {
   const payment = new Payment(client)
 
   const data = {
-    transaction_amount: 90,
+    transaction_amount: 9000,
     description: body.plan as string,
     payment_method_id: 'pix',
     payer: {
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
 
   const result = await payment
     .create({ body: data, requestOptions })
-    .then(console.log)
+    .then((data) => data)
     .catch(console.log)
 
   return Response.json({ result })
