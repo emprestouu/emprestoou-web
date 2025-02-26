@@ -1,6 +1,5 @@
 import { MercadoPagoConfig, Payment } from 'mercadopago'
 
-
 const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADO_ACCESS_TOKEN_TEST_KEY as string,
   options: { timeout: 5000 },
@@ -13,12 +12,14 @@ export async function POST(req: Request) {
   const payment = new Payment(client)
 
   const data = {
-    transaction_amount: 9000,
+    transaction_amount: 1,
     description: body.plan as string,
     payment_method_id: 'pix',
     payer: {
       email: body.email as string,
     },
+    notification_url:
+      'https://5287-45-179-237-95.ngrok-free.app/api/assinatura/webhook',
   }
 
   const generateIdempotencyKey = () => {
