@@ -132,7 +132,7 @@ enum TipoParcelamento {
 }
 
 enum Planos {
-  START
-  PREMIUM
-  GOLD
+  GRATUITO
+  INTERMEDIARIO
+  ILIMITADO
 }
